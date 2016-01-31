@@ -19,6 +19,12 @@
 	<% end %>
 </p>
 
+<p>	<% if @brewery.ratings_amount == 0 %>
+	This brewery has <%= pluralize(@brewery.ratings_amount, "rating")%>.
+	<% else %>
+	This brewery has <%= pluralize(@brewery.ratings_amount, "rating") %>, the average rating is <%= @brewery.average_rating %>
+	<% end %>
+</p>
 
 <p>Here you can find a <%= link_to 'list of beers', beers_path %></p>
 
