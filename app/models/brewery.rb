@@ -2,7 +2,17 @@ class Brewery < ActiveRecord::Base
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
+  validates :name, presence: true
+  validates :year, numericality: { only_integer: true }
+  validate :year_must_be_current_or_past
+
   include RatingAverage
+
+  def year_must_be_current_or_past
+    if year <= 1042 or year > (Date.today + 1).year
+      errors.add(:year, "cannot be in the future or older than 1042")
+    end
+  end
 
   def print_report
   	puts name
